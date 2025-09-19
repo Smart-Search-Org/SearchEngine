@@ -1,0 +1,51 @@
+# Binaries and build outputs
+/bin/
+/build/
+/dist/
+/out/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Go build cache and modules
+*.log
+*.prof
+*.coverprofile
+*.test
+*.out
+*.o
+*.a
+*.obj
+*.swp
+*.swo
+
+# Go workspace
+vendor/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Configs and secrets
+configs/config.yaml
+.env
+*.key
+*.crt
+*.pem
+
+# Search index files (Bleve, etc.)
+*.bleve
+*.index
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
