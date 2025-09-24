@@ -41,7 +41,8 @@ configs/config.yaml
 *.crt
 *.pem
 
-# Search index files (Bleve, etc.)
+# Search index_service files (Bleve, etc.)
+.appdata
 *.bleve
 *.index
 

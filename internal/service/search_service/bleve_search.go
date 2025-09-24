@@ -1,7 +1,8 @@
-package search
+package search_service
 
 import (
 	"SmartSearch/internal/models"
+	"SmartSearch/internal/repository"
 	"log"
 
 	"github.com/blevesearch/bleve/v2"
@@ -10,7 +11,7 @@ import (
 var Documents = []models.Document{
 	{Id: "1", Title: "Go Concurrency", Content: "Go supports concurrency via goroutines and channels."},
 	{Id: "2", Title: "Python AI", Content: "Python is widely used in machine learning and AI research."},
-	{Id: "3", Title: "Databases", Content: "Postgres provides full-text search capabilities."},
+	{Id: "3", Title: "Databases", Content: "Postgres provides full-text search_service capabilities."},
 }
 
 func IndexData(index bleve.Index) {
@@ -28,11 +29,11 @@ func IndexData(index bleve.Index) {
 	}
 }
 
-func FullTextSearch(userQuery string) []map[string]interface{} {
-	index := CreateIndex()
+func FullTextSearch(userQuery string, indexName string) []map[string]interface{} {
+	index, _ := repository.GetIndex(indexName)
 	IndexData(index)
 
-	query := bleve.NewMatchQuery("go")
+	query := bleve.NewMatchQuery(userQuery)
 	search := bleve.NewSearchRequest(query)
 	searchResults, err := index.Search(search)
 	if err != nil {

@@ -9,7 +9,10 @@ import (
 func main() {
 	cfg := utils.LoadConfig()
 	router := api.SetupRouter(cfg)
-	log.Println("AI Search running on", cfg.Server.Port)
+	log.Println("Smart Search running on", cfg.Server.Port)
+
+	utils.LoadIndexesFromDisk()
+	log.Println("Loaded indexed in memory")
 
 	err := router.Run(":" + cfg.Server.Port)
 	if err != nil {
