@@ -13,7 +13,8 @@ func RegisterSearchRoutes(router *gin.Engine) {
 }
 
 func RegisterIndexRoutes(router *gin.Engine) {
-	router.POST("/index", index.IndexCreateHandler)
+	router.POST("/index", index.CreateIndexHandler)
+	router.DELETE("/index", index.DeleteIndexHandler)
 }
 
 func SetupRouter(cfg utils.Config) *gin.Engine {

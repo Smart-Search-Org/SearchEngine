@@ -11,8 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// IndexCreateHandler parameters: name
-func IndexCreateHandler(c *gin.Context) {
+// CreateIndexHandler parameters: name
+func CreateIndexHandler(c *gin.Context) {
 	jsonData, err := io.ReadAll(c.Request.Body)
 	if err != nil {
 		log.Println("failed to read body:", err)

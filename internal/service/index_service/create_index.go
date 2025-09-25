@@ -17,7 +17,7 @@ func CreateIndex(indexName string) (string, error) {
 
 	_, err := repository.CreateIndex(indexName, mapping)
 	if err != nil {
-		return "", fmt.Errorf("failed to save index_service %q: %w", indexName, err)
+		return "", fmt.Errorf("failed to save index %q: %w", indexName, err)
 	}
 
 	return indexName, nil

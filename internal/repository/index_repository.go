@@ -82,3 +82,28 @@ func GetIndex(indexName string) (bleve.Index, error) {
 	}
 	return idx, nil
 }
+
+func DeleteIndex(indexName string) (string, error) {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	index, err := GetIndex(indexName)
+	if err != nil {
+		return "", err
+	}
+
+	if err := index.Close(); err != nil {
+		log.Println("Repository failed to close index:", err)
+		return "", err
+	}
+
+	delete(indexRegistry, indexName)
+
+	err = os.RemoveAll(filepath.Join(BasePath, indexName))
+	if err != nil {
+		log.Println("Repository failed to delete index: ", err)
+		return "", err
+	}
+
+	return indexName, nil
+}
