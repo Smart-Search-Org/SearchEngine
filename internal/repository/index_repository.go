@@ -76,11 +76,11 @@ func GetIndex(indexName string) (bleve.Index, error) {
 	mu.RLock()
 	defer mu.RUnlock()
 
-	idx, ok := indexRegistry[indexName]
+	index, ok := indexRegistry[indexName]
 	if !ok {
 		return nil, errors.New("index_service not found")
 	}
-	return idx, nil
+	return index, nil
 }
 
 func DeleteIndex(indexName string) (string, error) {

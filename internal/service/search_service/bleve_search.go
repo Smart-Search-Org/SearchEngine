@@ -31,21 +31,21 @@ func IndexData(index bleve.Index) {
 
 func FullTextSearch(userQuery string, indexName string) []map[string]interface{} {
 	index, _ := repository.GetIndex(indexName)
-	IndexData(index)
+	//IndexData(index)
 
-	query := bleve.NewMatchQuery(userQuery)
+	query := bleve.NewQueryStringQuery(userQuery)
 	search := bleve.NewSearchRequest(query)
 	searchResults, err := index.Search(search)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	defer func(index bleve.Index) {
-		err := index.Close()
-		if err != nil {
-
-		}
-	}(index)
+	//defer func(index bleve.Index) {
+	//	err := index.Close()
+	//	if err != nil {
+	//
+	//	}
+	//}(index)
 
 	var docs []map[string]interface{}
 	for _, hit := range searchResults.Hits {
@@ -55,7 +55,7 @@ func FullTextSearch(userQuery string, indexName string) []map[string]interface{}
 		})
 	}
 
-	log.Printf("found docs: %d", searchResults.Total)
-	log.Printf("found docs: %s", searchResults.Hits)
+	//log.Printf("found docs: %d", searchResults.Total)
+	//log.Printf("found docs: %s", searchResults.Hits)
 	return docs
 }

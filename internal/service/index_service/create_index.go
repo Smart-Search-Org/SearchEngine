@@ -14,6 +14,7 @@ func CreateIndex(indexName string) (string, error) {
 	}
 
 	mapping := bleve.NewIndexMapping()
+	mapping.DefaultAnalyzer = "en"
 
 	_, err := repository.CreateIndex(indexName, mapping)
 	if err != nil {

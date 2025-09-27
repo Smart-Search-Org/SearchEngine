@@ -5,10 +5,12 @@ go 1.25
 require (
 	github.com/blevesearch/bleve/v2 v2.5.3
 	github.com/gin-gonic/gin v1.11.0
+	github.com/go-sql-driver/mysql v1.9.3
 	github.com/spf13/viper v1.21.0
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/RoaringBitmap/roaring/v2 v2.4.5 // indirect
 	github.com/bits-and-blooms/bitset v1.22.0 // indirect
 	github.com/blevesearch/bleve_index_api v1.2.8 // indirect

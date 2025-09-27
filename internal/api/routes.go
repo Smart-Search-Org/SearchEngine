@@ -3,25 +3,16 @@ package api
 import (
 	"SmartSearch/internal/api/index"
 	"SmartSearch/internal/api/search"
-	"SmartSearch/internal/utils"
+	"SmartSearch/internal/api/user_database"
 
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterSearchRoutes(router *gin.Engine) {
+func RegisterRoutes(router *gin.Engine) {
 	router.POST("/search", search.SearchHandler)
-}
 
-func RegisterIndexRoutes(router *gin.Engine) {
 	router.POST("/index", index.CreateIndexHandler)
 	router.DELETE("/index", index.DeleteIndexHandler)
-}
 
-func SetupRouter(cfg utils.Config) *gin.Engine {
-	r := gin.Default()
-
-	RegisterSearchRoutes(r)
-	RegisterIndexRoutes(r)
-
-	return r
+	router.POST("/index/docs", user_database.PopulateIndexHandler)
 }
