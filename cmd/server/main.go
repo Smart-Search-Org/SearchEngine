@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(cfg utils.Config) *gin.Engine {
+func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
 	utils.LoggingMiddleware()
@@ -19,7 +19,7 @@ func SetupRouter(cfg utils.Config) *gin.Engine {
 
 func main() {
 	cfg := utils.LoadConfig()
-	router := SetupRouter(cfg)
+	router := SetupRouter()
 	log.Println("Smart Search running on", cfg.Server.Port)
 
 	utils.LoadIndexesFromDisk()
