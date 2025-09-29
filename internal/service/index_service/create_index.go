@@ -13,8 +13,16 @@ func CreateIndex(indexName string) (string, error) {
 		return "", errors.New("index_service index_name cannot be empty")
 	}
 
+	docMapping := bleve.NewDocumentMapping()
+	fieldMapping := bleve.NewTextFieldMapping()
+	fieldMapping.Analyzer = "en"
+
+	fieldMapping.Store = true
+
+	docMapping.AddFieldMappingsAt("*", fieldMapping)
+
 	mapping := bleve.NewIndexMapping()
-	mapping.DefaultAnalyzer = "en"
+	mapping.DefaultMapping = docMapping
 
 	_, err := repository.CreateIndex(indexName, mapping)
 	if err != nil {

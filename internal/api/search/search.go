@@ -25,6 +25,6 @@ func SearchHandler(c *gin.Context) {
 		return
 	}
 
-	results := search_service.FullTextSearch(searchQuery.Query, searchQuery.IndexName)
+	results := search_service.FullTextSearch(searchQuery.Query, searchQuery.Filters, searchQuery.IndexName)
 	c.JSON(http.StatusOK, gin.H{"results": results})
 }
