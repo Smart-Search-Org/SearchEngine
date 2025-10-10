@@ -68,11 +68,13 @@ func Extract(driverName string, dataSourceName string, tableName string) ([]map[
 			log.Println("Rows close error: ", err)
 		}
 	}(rows)
+	log.Println("Database rows are extracted")
 
 	docs, err := convertRowsToStringMap(rows)
 	if err != nil {
 		return nil, err
 	}
+	log.Println("Rows are converted to a string map")
 
 	return docs, nil
 }

@@ -31,12 +31,14 @@ func PopulateIndexHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
 		return
 	}
+	log.Println("Information from user database was extracted successfully")
 
 	err = index_doc_service.AddDocs(pir.IndexName, extract)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
 		return
 	}
+	log.Println("All the docs from the user database were added successfully")
 
 	c.JSON(http.StatusOK, gin.H{"results": "index populated"})
 }
