@@ -47,25 +47,25 @@ func convertRowsToStringMap(rows *sql.Rows) ([]map[string]interface{}, error) {
 func Extract(driverName string, dataSourceName string, tableName string) ([]map[string]interface{}, error) {
 	db, err := sql.Open(driverName, dataSourceName)
 	if err != nil {
-		log.Fatal("Database connection error", err)
+		log.Println("Database connection error: ", err)
 		return nil, err
 	}
 	defer func(db *sql.DB) {
 		err := db.Close()
 		if err != nil {
-			log.Fatal("Database close connection error", err)
+			log.Println("Database close connection error: ", err)
 		}
 	}(db)
 
 	rows, err := db.Query("SELECT * FROM " + tableName)
 	if err != nil {
-		log.Fatal("Could not fetch the data from the table", err)
+		log.Println("Could not fetch the data from the table: ", err)
 		return nil, err
 	}
 	defer func(rows *sql.Rows) {
 		err := rows.Close()
 		if err != nil {
-			log.Fatal("Rows close error", err)
+			log.Println("Rows close error: ", err)
 		}
 	}(rows)
 

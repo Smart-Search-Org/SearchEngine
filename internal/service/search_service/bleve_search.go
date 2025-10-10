@@ -24,7 +24,7 @@ func FullTextSearch(userQuery string, filters map[string]interface{}, indexName 
 	search.Fields = []string{"*"}
 	searchResults, err := index.Search(search)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	var docs []map[string]interface{}

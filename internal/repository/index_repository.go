@@ -65,7 +65,7 @@ func CreateIndex(indexName string, mapping *mapping.IndexMappingImpl) (bleve.Ind
 	defer mu.Unlock()
 
 	if _, exists := indexRegistry[indexName]; exists {
-		return nil, errors.New("index_service already exists")
+		return nil, fmt.Errorf("index_service already exists")
 	}
 
 	indexRegistry[indexName] = index
@@ -78,7 +78,7 @@ func GetIndex(indexName string) (bleve.Index, error) {
 
 	index, ok := indexRegistry[indexName]
 	if !ok {
-		return nil, errors.New("index_service not found")
+		return nil, fmt.Errorf("index_service not found")
 	}
 	return index, nil
 }
