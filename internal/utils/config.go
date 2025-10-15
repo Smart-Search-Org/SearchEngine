@@ -2,8 +2,9 @@ package utils
 
 import (
 	"log"
+	"os"
 
-	"github.com/spf13/viper"
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -20,18 +21,18 @@ type Config struct {
 }
 
 func LoadConfig() Config {
-	var cfg Config
-
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./configs")
-
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Error reading config file: %s", err)
+	if err := godotenv.Load(); err != nil {
+		log.Println("⚠️ No .env file found, using environment variables only")
 	}
 
-	if err := viper.Unmarshal(&cfg); err != nil {
-		log.Fatalf("Unable to decode config into struct: %v", err)
+	var cfg Config
+	cfg.Server.Port = os.Getenv("SERVER_PORT")
+	cfg.Database.Driver = os.Getenv("DATABASE_DRIVER")
+	cfg.Database.DSN = os.Getenv("DATABASE_DSN")
+	cfg.OpenAI.APIKey = os.Getenv("OPENAI_APIKEY")
+
+	if cfg.Server.Port == "" {
+		cfg.Server.Port = "8080"
 	}
 
 	return cfg
