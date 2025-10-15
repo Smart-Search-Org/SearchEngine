@@ -26,8 +26,6 @@ RUN chown -R appuser:appgroup /app
 
 USER appuser
 
-COPY ./configs ./configs
-
 RUN mkdir -p /app/.appdata
 
 EXPOSE 8080
