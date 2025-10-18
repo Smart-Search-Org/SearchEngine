@@ -1,13 +1,13 @@
 package index_doc_service
 
 import (
-	"SmartSearch/internal/repository"
+	"SmartSearch/internal/repository/index"
 	"fmt"
 	"strconv"
 )
 
 func AddDocs(indexName string, raw []map[string]interface{}) error {
-	index, err := repository.GetIndex(indexName)
+	index, err := index.GetIndex(indexName)
 	if err != nil {
 		return err
 	}

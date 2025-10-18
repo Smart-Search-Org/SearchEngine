@@ -1,7 +1,7 @@
 package index_service
 
 import (
-	"SmartSearch/internal/repository"
+	"SmartSearch/internal/repository/index"
 	"errors"
 	"fmt"
 )
@@ -11,7 +11,7 @@ func DeleteIndex(indexName string) (string, error) {
 		return "", errors.New("index_service index_name cannot be empty")
 	}
 
-	_, err := repository.DeleteIndex(indexName)
+	_, err := index.DeleteIndex(indexName)
 	if err != nil {
 		return "", fmt.Errorf("failed to delete index %q: %w", indexName, err)
 	}

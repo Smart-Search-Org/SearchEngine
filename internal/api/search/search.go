@@ -3,6 +3,7 @@ package search
 import (
 	"SmartSearch/internal/models/requests"
 	"SmartSearch/internal/service/search_service"
+	"SmartSearch/internal/service/user_index_service"
 	"encoding/json"
 	"io"
 	"log"
@@ -22,6 +23,16 @@ func SearchHandler(c *gin.Context) {
 	var searchQuery requests.SearchRequest
 	if err := json.Unmarshal(jsonData, &searchQuery); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
+		return
+	}
+
+	hasIndex, err := user_index_service.IsUserHasIndex(searchQuery.UserId, searchQuery.IndexName)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
+		return
+	}
+	if !hasIndex {
+		c.JSON(http.StatusNotFound, gin.H{"error": "index not found"})
 		return
 	}
 

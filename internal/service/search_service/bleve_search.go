@@ -1,7 +1,7 @@
 package search_service
 
 import (
-	"SmartSearch/internal/repository"
+	"SmartSearch/internal/repository/index"
 	"log"
 
 	"github.com/blevesearch/bleve/v2"
@@ -9,7 +9,7 @@ import (
 )
 
 func FullTextSearch(userQuery string, filters map[string]interface{}, indexName string) []map[string]interface{} {
-	index, _ := repository.GetIndex(indexName)
+	index, _ := index.GetIndex(indexName)
 
 	filterQuery, _ := filterModule(filters)
 	var finalQuery query.Query

@@ -4,6 +4,7 @@ import (
 	"SmartSearch/internal/models/requests"
 	"SmartSearch/internal/service/index_doc_service"
 	"SmartSearch/internal/service/user_database_service"
+	"SmartSearch/internal/service/user_index_service"
 	"encoding/json"
 	"io"
 	"log"
@@ -23,6 +24,16 @@ func PopulateIndexHandler(c *gin.Context) {
 	var pir requests.PopulateIndexRequest
 	if err := json.Unmarshal(jsonData, &pir); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
+		return
+	}
+
+	hasIndex, err := user_index_service.IsUserHasIndex(pir.UserId, pir.IndexName)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
+		return
+	}
+	if !hasIndex {
+		c.JSON(http.StatusNotFound, gin.H{"error": "index not found"})
 		return
 	}
 

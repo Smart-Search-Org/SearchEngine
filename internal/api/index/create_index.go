@@ -26,7 +26,7 @@ func CreateIndexHandler(c *gin.Context) {
 		return
 	}
 
-	indexName, err := index_service.CreateIndex(createIndexRequest.IndexName)
+	indexName, err := index_service.CreateIndex(createIndexRequest.UserId, createIndexRequest.IndexName)
 	if err != nil {
 		return
 	}

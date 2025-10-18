@@ -23,6 +23,7 @@ func main() {
 	log.Println("Smart Search running on", cfg.Server.Port)
 
 	utils.LoadIndexesFromDisk()
+	utils.ConnectDatabase(cfg.Database.DSN)
 	log.Println("Loaded indexed in memory")
 
 	err := router.Run(":" + cfg.Server.Port)

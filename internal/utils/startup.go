@@ -1,7 +1,9 @@
 package utils
 
-import "SmartSearch/internal/repository"
+import (
+	"SmartSearch/internal/repository/index"
+)
 
 func LoadIndexesFromDisk() {
-	repository.LoadIndexesFromDisk()
+	index.LoadIndexesFromDisk()
 }
