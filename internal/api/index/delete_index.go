@@ -2,6 +2,7 @@ package index
 
 import (
 	"SmartSearch/internal/service/index_service"
+	"SmartSearch/internal/service/user_database_service"
 	"SmartSearch/internal/service/user_index_service"
 	"log"
 	"net/http"
@@ -31,6 +32,12 @@ func DeleteIndexHandler(c *gin.Context) {
 	}
 
 	indexName, err = index_service.DeleteIndex(indexName)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
+		return
+	}
+
+	err = user_database_service.DeleteIndex(userId, indexName)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
 		return

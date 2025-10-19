@@ -77,3 +77,22 @@ func UpdateUserIndexStructure(userID string, indexName string, structure interfa
 
 	return nil
 }
+
+func DeleteUserIndex(userID string, indexName string) error {
+	if userID == "" || indexName == "" {
+		return fmt.Errorf("userID and indexName cannot be empty")
+	}
+
+	result := utils.DB.
+		Where("user_id = ? AND index_name = ?", userID, indexName).
+		Delete(&database.UserIndex{})
+
+	if result.Error != nil {
+		return fmt.Errorf("failed to delete user index: %w", result.Error)
+	}
+	if result.RowsAffected == 0 {
+		return gorm.ErrRecordNotFound
+	}
+
+	return nil
+}
