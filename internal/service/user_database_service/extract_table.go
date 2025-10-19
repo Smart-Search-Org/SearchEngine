@@ -30,7 +30,7 @@ func convertRowsToStringMap(rows *sql.Rows) ([]map[string]interface{}, error) {
 		for i, col := range cols {
 			switch v := vals[i].(type) {
 			case []byte:
-				doc[col] = string(v) // convert SQL string
+				doc[col] = string(v)
 			case nil:
 				doc[col] = nil
 			default:

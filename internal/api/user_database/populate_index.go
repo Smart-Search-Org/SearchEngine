@@ -51,5 +51,11 @@ func PopulateIndexHandler(c *gin.Context) {
 	}
 	log.Println("All the docs from the user database were added successfully")
 
+	err = user_database_service.Update(pir.UserId, pir.IndexName, extract[0])
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{"results": "index populated"})
 }

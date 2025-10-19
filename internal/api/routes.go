@@ -13,6 +13,7 @@ func RegisterRoutes(router *gin.Engine) {
 
 	router.POST("/index", index.CreateIndexHandler)
 	router.DELETE("/index", index.DeleteIndexHandler)
+	router.GET("/index-structure", index.GetIndexStructure)
 
 	router.POST("/index/docs", user_database.PopulateIndexHandler)
 }
