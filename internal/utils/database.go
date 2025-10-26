@@ -18,7 +18,7 @@ func ConnectDatabase(dsn string) {
 
 	err = db.AutoMigrate(&database.UserIndex{})
 	if err != nil {
-		log.Printf("Database migration failed (likely that the table already exists): %v\n", err)
+		log.Fatalf("Database migration failed: %v\n", err)
 	}
 
 	DB = db
