@@ -1,32 +1,19 @@
 package index
 
 import (
-	"SmartSearch/internal/models/requests"
 	"SmartSearch/internal/service/user_database_service"
 	"SmartSearch/internal/service/user_index_service"
-	"encoding/json"
-	"io"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetIndexStructure(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Println("failed to read body:", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
-		return
-	}
+	queryParams := c.Request.URL.Query()
+	indexName := queryParams.Get("indexName")
+	userId := queryParams.Get("userId")
 
-	var indexStructureRequest requests.GetIndexStructureRequest
-	if err := json.Unmarshal(jsonData, &indexStructureRequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
-		return
-	}
-
-	hasIndex, err := user_index_service.IsUserHasIndex(indexStructureRequest.UserId, indexStructureRequest.IndexName)
+	hasIndex, err := user_index_service.IsUserHasIndex(userId, indexName)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
 		return
@@ -36,7 +23,7 @@ func GetIndexStructure(c *gin.Context) {
 		return
 	}
 
-	indexStructure, err := user_database_service.GetIndexStructure(indexStructureRequest.UserId, indexStructureRequest.IndexName)
+	indexStructure, err := user_database_service.GetIndexStructure(userId, indexName)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server error"})
 		return
